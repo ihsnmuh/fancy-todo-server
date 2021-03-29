@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -12,51 +10,58 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  Todo.init({
-    title: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Please enter your title'
-        }
-      }
+  }
+  Todo.init(
+    {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Please enter your title",
+          },
+        },
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Please enter your description",
+          },
+        },
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Please enter your status",
+          },
+        },
+      },
+      due_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            args: true,
+            msg: "Please enter your date",
+          },
+          isAfter: {
+            args: new Date().toISOString(),
+            msg: "Cannot set this due date!",
+          },
+        },
+      }, //Validasi gaboleh tanggal yang udah lewat minimal hari ini cari di validation duedate
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Please enter your description'
-        }
-      }
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Please enter your status'
-        }
-      }
-    }, 
-    due_date: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Please enter your date'
-        }
-      }
-    } //Validasi gaboleh tanggal yang udah lewat minimal hari ini cari di validation duedate
-  }, {
-    sequelize,
-    modelName: 'Todo',
-  });
+    {
+      sequelize,
+      modelName: "Todo",
+    }
+  );
   return Todo;
 };
