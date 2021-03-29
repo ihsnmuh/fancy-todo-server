@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Server site Fancy todo",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +16,13 @@
   },
   "devDependencies": {
     "sequelize-cli": "^6.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ihsnmuh/fancy-todo-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ihsnmuh/fancy-todo-server/issues"
+  },
+  "homepage": "https://github.com/ihsnmuh/fancy-todo-server#readme"
 }
