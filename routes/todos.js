@@ -3,11 +3,16 @@ const router = express.Router();
 const { TodosController } = require("../controllers/TodosController");
 const authentication = require("../middlewares/authentication");
 const authorization = require("../middlewares/authorization");
+const MovieController = require("../controllers/MovieController");
+const RandomController = require("../controllers/RandomActivity");
 
 // harus login dulu sebelum akses endpount
 router.use(authentication);
 router.get("/", TodosController.getTodos);
 router.post("/", TodosController.postTodos);
+
+router.get("/movie", MovieController.searchMovies);
+router.get("/activity", RandomController.randomActivity);
 
 router.use("/:id", authorization);
 router.get("/:id", TodosController.getTodosbyId);
