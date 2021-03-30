@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+      Todo.belongsTo(models.User);
     }
   }
   Todo.init(
@@ -57,6 +59,9 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       }, //Validasi gaboleh tanggal yang udah lewat minimal hari ini cari di validation duedate
+      UserId: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

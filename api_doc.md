@@ -309,7 +309,7 @@ _Request Header_
 
 ```
 {
-  "access_token": "<your access token>"
+    "access_token": "<your access token>"
 }
 ```
 
@@ -317,7 +317,7 @@ _Request Body_
 
 ```
 {
-     "id": <id of the todo to delete>
+    "id": <id of the todo to delete>
 }
 ```
 
@@ -325,13 +325,7 @@ _Response (200 - Ok)_
 
 ```
 {
-    "id": <id as requested>,
-    "title": "<todo title>",
-    "description": "<todo description>",
-    "status": "<todo status>",
-    "due_date": "<todo due date>",
-    "createdAt": "2020-03-20T07:15:12.149Z",
-    "updatedAt": "2020-03-20T07:15:12.149Z",
+    message: 'todo success to delete'
 }
 ```
 
@@ -339,7 +333,7 @@ _Response (404 - Not Found)_
 
 ```
 {
-     "message": "Not Found"
+    "message": "Not Found"
 }
 ```
 
