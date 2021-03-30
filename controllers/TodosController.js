@@ -17,6 +17,7 @@ class TodosController {
       description: req.body.description,
       status: req.body.status,
       due_date: req.body.due_date,
+      UserId: req.loggedUser.id,
     };
 
     Todo.create(newTodo)

@@ -1,8 +1,12 @@
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "keypassword";
+const JWT_SECRET = process.env.SECRET;
 
 function generateToken(payload) {
   return jwt.sign(payload, JWT_SECRET);
 }
 
-module.exports = { generateToken };
+function verify(token) {
+  return jwt.verify(token, JWT_SECRET);
+}
+
+module.exports = { generateToken, verify };

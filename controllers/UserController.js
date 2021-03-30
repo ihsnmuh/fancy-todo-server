@@ -5,17 +5,23 @@ const { generateToken } = require("../helper/jwt");
 class UserController {
   static postRegister(req, res) {
     const { username, email, password } = req.body;
-    User.create({ username, email, password })
-      .then((user) => {
-        // console.log(user);
-        res
-          .status(201)
-          .json({ id: user.id, username: user.username, email: user.email });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
+    if (username.includes(" ")) {
+      res
+        .status(400)
+        .json({ message: "Invalid username (must be alphanumeric)" });
+    } else {
+      User.create({ username, email, password })
+        .then((user) => {
+          // console.log(user);
+          res
+            .status(201)
+            .json({ id: user.id, username: user.username, email: user.email });
+        })
+        .catch((err) => {
+          // console.log(err);
+          res.status(500).json(err);
+        });
+    }
   }
 
   static postLogin(req, res) {
@@ -26,13 +32,13 @@ class UserController {
         // console.log(user);
         // pengecekan email terlebih dahulu jika salah masuk sini
         if (!user) {
-          res.status(401).json({ message: "Email / Password doesn't match" });
+          res.status(400).json({ message: "Invalid Username or Password" });
         } else {
           // pengecekan password input dengan database
           const passwordMatch = comparePassword(password, user.password); //mengembalikan true/false ngebandingkan dengan password yang sudah dienkirpsi
           //   console.log(passwordMatch);
           if (!passwordMatch) {
-            res.status(401).json({ message: "Email / Password doesn't match" });
+            res.status(400).json({ message: "Invalid Username or Password" });
           } else {
             //generate token JWT
             const token = generateToken({
@@ -42,7 +48,12 @@ class UserController {
               email: user.email,
             });
             // console.log(token);
-            res.status(200).json({ access_token: token });
+            res.status(200).json({
+              id: user.id,
+              username: user.username,
+              email: user.email,
+              access_token: token,
+            });
           }
         }
       })
