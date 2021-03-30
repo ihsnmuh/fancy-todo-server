@@ -10,10 +10,10 @@ function errHandler(err, req, res, next) {
       res.status(400).json({ message: err.errors[0].message });
       break;
     case "InvalidUserorPassword":
-      res.status(400).json({ message: "Invalid Username or Password" });
+      res.status(400).json({ message: "Invalid Email or Password" });
       break;
     case "JsonWebTokenError":
-      res.status(400).json({ message: "Invalid Username or Password" });
+      res.status(400).json({ message: "Invalid Email or Password" });
       break;
     case "InvalidAccessToken":
       res.status(401).json({ message: "Invalid Access Token" });
