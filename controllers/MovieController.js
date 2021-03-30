@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 class MovieController {
-  static searchMovies(req, res) {
+  static searchMovies(req, res, next) {
     const TMDB_TOKEN = process.env.TMDB_TOKEN;
     // console.log(TMDB_TOKEN);
     axios({
@@ -23,8 +23,7 @@ class MovieController {
         res.status(200).json(movies);
       })
       .catch((err) => {
-        // console.log(err);
-        res.status(500).json({ message: err.message });
+        next(err);
       });
   }
 }

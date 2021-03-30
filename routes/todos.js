@@ -11,8 +11,8 @@ router.use(authentication);
 router.get("/", TodosController.getTodos);
 router.post("/", TodosController.postTodos);
 
-router.get("/movie", MovieController.searchMovies);
-router.get("/activity", RandomController.randomActivity);
+router.get("/movie", MovieController.searchMovies); // 3rd API
+router.get("/activity", RandomController.randomActivity); // 3rd API
 
 router.use("/:id", authorization);
 router.get("/:id", TodosController.getTodosbyId);

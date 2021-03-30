@@ -13,15 +13,13 @@ async function authorize(req, res, next) {
       if (foundTodo.UserId === req.loggedUser.id) {
         next();
       } else {
-        throw { status: 401, message: "Unauthorized" };
+        throw { name: "Unauthorized" };
       }
     } else {
-      throw { status: 401, message: "Unauthorized" };
+      throw { name: "Unauthorized" };
     }
   } catch (err) {
-    const status = err.status || 500;
-    const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
+    next(err);
   }
 }
 

@@ -7,11 +7,10 @@ class RandomController {
       url: process.env.RANDOM_ACTIVITIES,
     })
       .then((response) => {
-        res.status(200).json({ result: response.data });
+        res.status(200).json({ result: response.data.activity });
       })
       .catch((err) => {
-        console.log(err);
-        res.status(500).json({ message: err.message });
+        next(err);
       });
   }
 }

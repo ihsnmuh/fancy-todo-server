@@ -47,15 +47,13 @@ async function authenticate(req, res, next) {
         };
         next();
       } else {
-        throw { status: 401, message: "Invalid access token" };
+        throw { message: "InvalidAccessToken" };
       }
     } else {
-      throw { status: 401, message: "Please login first" };
+      throw { message: "InvalidAccessToken" };
     }
   } catch (err) {
-    const status = err.status || 500;
-    const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
+    next(err);
   }
 }
 

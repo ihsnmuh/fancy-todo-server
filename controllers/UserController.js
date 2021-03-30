@@ -3,7 +3,7 @@ const { comparePassword } = require("../helper/bcrypt");
 const { generateToken } = require("../helper/jwt");
 
 class UserController {
-  static postRegister(req, res) {
+  static postRegister(req, res, next) {
     const { username, email, password } = req.body;
     if (username.includes(" ")) {
       res
@@ -18,13 +18,12 @@ class UserController {
             .json({ id: user.id, username: user.username, email: user.email });
         })
         .catch((err) => {
-          // console.log(err);
-          res.status(500).json(err);
+          next(err);
         });
     }
   }
 
-  static postLogin(req, res) {
+  static postLogin(req, res, next) {
     const { email, password } = req.body;
 
     User.findOne({ where: { email } })
@@ -32,13 +31,13 @@ class UserController {
         // console.log(user);
         // pengecekan email terlebih dahulu jika salah masuk sini
         if (!user) {
-          res.status(400).json({ message: "Invalid Username or Password" });
+          throw { name: "InvalidUserorPassword" };
         } else {
           // pengecekan password input dengan database
           const passwordMatch = comparePassword(password, user.password); //mengembalikan true/false ngebandingkan dengan password yang sudah dienkirpsi
           //   console.log(passwordMatch);
           if (!passwordMatch) {
-            res.status(400).json({ message: "Invalid Username or Password" });
+            throw { name: "InvalidUserorPassword" };
           } else {
             //generate token JWT
             const token = generateToken({
@@ -58,7 +57,7 @@ class UserController {
         }
       })
       .catch((err) => {
-        res.status(500).json(err);
+        next(err);
       });
   }
 }

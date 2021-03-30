@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Please enter your title",
+            msg: "Title is required!",
           },
         },
       },
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Please enter your description",
+            msg: "Description is required!",
           },
         },
       },
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Please enter your status",
+            msg: "Status is required!",
           },
         },
       },
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           notEmpty: {
             args: true,
-            msg: "Please enter your date",
+            msg: "Due date is required!",
           },
           isAfter: {
             args: new Date().toISOString(),
