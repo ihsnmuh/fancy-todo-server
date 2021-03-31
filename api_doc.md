@@ -16,6 +16,9 @@ My Todos App is an application to manage your todos. This ap has :
 - `PATCH /todos/:id`
 - `DELETE /todos/:id`
 
+- `POST /register`
+- `POST /login`
+
 &nbsp;
 
 ## RESTful endpoint
@@ -334,6 +337,106 @@ _Response (404 - Not Found)_
 ```
 {
     "message": "Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+     "message": "Internal server error"
+}
+```
+
+---
+
+### POST /register
+
+> Register New User
+
+_Request Header_
+
+```
+{
+    "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+{
+    "username": "<username User>",
+    "email": "<email User>",
+    "password": "<password User>"
+}
+```
+
+_Response (201 - Created)_
+
+```
+{
+    "id": "<user.id registed>",
+    "username": "<user.username registed>",
+    "email": "<user.email registed>"
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+    "message": "Not Found"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+     "message": "Internal server error"
+}
+```
+
+---
+
+### POST /login
+
+> Login User
+
+_Request Header_
+
+```
+{
+    "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+{
+    "email": "<email User>",
+    "password": "<password User>"
+}
+```
+
+_Response (200 - Ok)_
+
+```
+{
+    "id": "<id login>",
+    "username": "<username login>",
+    "email": "<email login>"
+    "access_token": "<access_token login>"
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+    message: "Invalid Email or Password"
 }
 ```
 
