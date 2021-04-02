@@ -18,6 +18,10 @@ My Todos App is an application to manage your todos. This ap has :
 
 - `POST /register`
 - `POST /login`
+- `POST /googleLogin`
+
+- `GET /todos/movie`
+- `GET /todos/activity`
 
 &nbsp;
 
@@ -357,9 +361,7 @@ _Response (500 - Internal server error)_
 _Request Header_
 
 ```
-{
-    "access_token": "<your access token>"
-}
+
 ```
 
 _Request Body_
@@ -407,9 +409,7 @@ _Response (500 - Internal server error)_
 _Request Header_
 
 ```
-{
-    "access_token": "<your access token>"
-}
+
 ```
 
 _Request Body_
@@ -445,6 +445,127 @@ _Response (500 - Internal server error)_
 ```
 {
      "message": "Internal server error"
+}
+```
+
+---
+
+### POST /googleLogin
+
+> Login User with GoogleOauth
+
+_Request Header_
+
+```
+
+```
+
+_Request Body_
+
+```
+{
+    "email": "<email User>",
+}
+```
+
+_Response (200 - Ok)_
+
+```
+{
+    "id": "<id login>",
+    "username": "<username login>",
+    "email": "<email login>"
+    "access_token": "<access_token login>"
+}
+```
+
+_Response (404 - Not Found)_
+
+```
+{
+    message: "Invalid Email or Password"
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+     "message": "Internal server error"
+}
+```
+
+---
+
+### GET /todos/activity
+
+> Get random Activity
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+not needed
+```
+
+_Response (200 - Ok)_
+
+```
+{
+"activity": <activity>,
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+### GET /todos/movie
+
+> Get random Activity
+
+_Request Header_
+
+```
+{
+  "access_token": "<your access token>"
+}
+```
+
+_Request Body_
+
+```
+not needed
+```
+
+_Response (200 - Ok)_
+
+```
+{
+    id: <movie.id>,
+    title: <movie.title>,
+    release_date: <movie.releaseDate>,
+}
+```
+
+_Response (500 - Internal server error)_
+
+```
+{
+  "message": "Internal server error"
 }
 ```
 
