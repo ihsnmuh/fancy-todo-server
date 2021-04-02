@@ -2,7 +2,8 @@ const { Todo } = require("../models/");
 
 class TodosController {
   static getTodos(req, res, next) {
-    Todo.findAll() // masih belum benar
+    // console.log(req);
+    Todo.findAll({ where: { UserId: req.loggedUser.id } }) // sudah benar
       .then((Todos) => {
         res.status(200).json(Todos);
       })

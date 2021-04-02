@@ -1,6 +1,7 @@
 const { User } = require("../models");
 const { comparePassword } = require("../helper/bcrypt");
 const { generateToken } = require("../helper/jwt");
+const { OAuth2Client } = require("google-auth-library");
 
 class UserController {
   static postRegister(req, res, next) {
@@ -46,7 +47,7 @@ class UserController {
               username: user.username,
               email: user.email,
             });
-            // console.log(token);
+            console.log(token, "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
             res.status(200).json({
               id: user.id,
               username: user.username,
@@ -55,6 +56,62 @@ class UserController {
             });
           }
         }
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+
+  static googleLogin(req, res, next) {
+    const id_token = req.body.id_token;
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    let email = null;
+    let tempUsername = null;
+
+    client
+      .verifyIdToken({
+        idToken: id_token,
+        audience: process.env.GOOGLE_CLIENT_ID,
+      })
+      .then((tiket) => {
+        const payload = tiket.getPayload();
+        console.log(payload);
+        email = payload.email;
+        tempUsername = email.split("@");
+
+        return User.findOne({
+          where: {
+            email: payload.email,
+          },
+        });
+      })
+      .then((User) => {
+        if (User) {
+          //kalau sudah terdaftar
+          return User;
+        } else {
+          //kalau belum terdaftar
+          return User.create({
+            email: email,
+            username: tempUsername[0],
+            password: "passwordGoogle",
+          });
+        }
+      })
+      .then((User) => {
+        console.log(User, "<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        const token = generateToken({
+          id: User.id,
+          username: User.username,
+          email: User.email,
+        });
+        console.log(token, "<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        res.status(200).json({
+          id: User.id,
+          username: User.username,
+          email: User.email,
+          access_token: token,
+        });
       })
       .catch((err) => {
         next(err);

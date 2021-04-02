@@ -7,10 +7,17 @@ const app = express();
 const port = 3000;
 const router = require("./routes");
 const errHandler = require("./middlewares/errHandler");
+const cors = require("cors");
+
+app.use(cors());
 
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false })); //kalo false untuk string dan array dan true bisa apa saja
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.use(router);
 
