@@ -85,10 +85,10 @@ class UserController {
           },
         });
       })
-      .then((User) => {
-        if (User) {
+      .then((DataUser) => {
+        if (DataUser) {
           //kalau sudah terdaftar
-          return User;
+          return DataUser;
         } else {
           //kalau belum terdaftar
           return User.create({
@@ -98,18 +98,18 @@ class UserController {
           });
         }
       })
-      .then((User) => {
+      .then((DataUser) => {
         console.log(User, "<<<<<<<<<<<<<<<<<<<<<<<<<<");
         const token = generateToken({
-          id: User.id,
-          username: User.username,
-          email: User.email,
+          id: DataUser.id,
+          username: DataUser.username,
+          email: DataUser.email,
         });
         console.log(token, "<<<<<<<<<<<<<<<<<<<<<<<<<<");
         res.status(200).json({
-          id: User.id,
-          username: User.username,
-          email: User.email,
+          id: DataUser.id,
+          username: DataUser.username,
+          email: DataUser.email,
           access_token: token,
         });
       })
