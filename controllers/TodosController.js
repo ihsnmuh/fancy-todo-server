@@ -23,15 +23,17 @@ class TodosController {
 
     Todo.create(newTodo)
       .then((todo) => {
+        console.log(todo);
         res.status(201).json(todo);
       })
       .catch((err) => {
-        // console.log(err.name, "<<<<<<<<<<<<<<<<<<");
-        if (err.name === "SequelizeValidationError") {
-          throw { name: "SequelizeValidationError" };
-        } else {
-          next(err);
-        }
+        console.log(err);
+        console.log(err.name, "<<<<<<<<<<<<<<<<<< ini di Create");
+        // if (err.name === "SequelizeValidationError") {
+        //   throw { name: "SequelizeValidationError" };
+        // } else {
+        next(err);
+        // }
       });
   }
 
@@ -70,11 +72,11 @@ class TodosController {
         }
       })
       .catch((err) => {
-        if (err.name === "SequelizeValidationError") {
-          throw { name: "SequelizeValidationError" };
-        } else {
-          next(err);
-        }
+        // if (err.name === "SequelizeValidationError") {
+        //   throw { name: "SequelizeValidationError" };
+        // } else {
+        next(err);
+        // }
       });
   }
 
@@ -95,11 +97,11 @@ class TodosController {
         }
       })
       .catch((err) => {
-        if (err.name === "SequelizeValidationError") {
-          throw { name: "SequelizeValidationError" };
-        } else {
-          next(err);
-        }
+        // if (err.name === "SequelizeValidationError") {
+        //   throw { name: "SequelizeValidationError" };
+        // } else {
+        next(err);
+        // }
       });
   }
 
